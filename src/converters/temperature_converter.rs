@@ -3,32 +3,36 @@ use crate::io_manager::input_getter;
 const CONVERSION_FACTOR: f64 = 5f64/9f64;
 const ADDITION_FACTOR: f64 = 32f64;
 
-pub fn convert(temp_conversion_type: TempConversionType) {
-    println!("Enter the temperature you want converted");
+pub struct TemperatureConverter;
 
-    let input = input_getter::get_user_input();
-    let processed_input = input.as_str().trim();
+impl TemperatureConverter {
+    pub(crate) fn convert(temp_conversion_type: TempConversionType) {
+        println!("Enter the temperature you want converted");
 
-    match temp_conversion_type {
-        TempConversionType::CelsiusToFahrenheit => {
-            let output = celsius_to_fahrenheit(processed_input).to_string();
-            println!("{processed_input} celsius is {output} fahrenheit");
-        },
-        TempConversionType::FahrenheitToCelsius => {
-            let output = fahrenheit_to_celsius(processed_input).to_string();
-            println!("{processed_input} fahrenheit is {output} celsius");
-        },
-    };
-}
+        let input = input_getter::get_user_input();
+        let processed_input = input.as_str().trim();
 
-fn celsius_to_fahrenheit(temp_str: &str) -> f64 {
-    let temp: f64 = temp_str.parse().unwrap();
-    temp / CONVERSION_FACTOR + ADDITION_FACTOR
-}
+        match temp_conversion_type {
+            TempConversionType::CelsiusToFahrenheit => {
+                let output = TemperatureConverter::celsius_to_fahrenheit(processed_input).to_string();
+                println!("{processed_input} celsius is {output} fahrenheit");
+            },
+            TempConversionType::FahrenheitToCelsius => {
+                let output = TemperatureConverter::fahrenheit_to_celsius(processed_input).to_string();
+                println!("{processed_input} fahrenheit is {output} celsius");
+            },
+        };
+    }
 
-fn fahrenheit_to_celsius(temp_str: &str) -> i32 {
-    let temp: f64 = temp_str.parse().unwrap();
-    (CONVERSION_FACTOR * (temp - ADDITION_FACTOR)) as i32
+    fn celsius_to_fahrenheit(temp_str: &str) -> f64 {
+        let temp: f64 = temp_str.parse().unwrap();
+        temp / CONVERSION_FACTOR + ADDITION_FACTOR
+    }
+
+    fn fahrenheit_to_celsius(temp_str: &str) -> i32 {
+        let temp: f64 = temp_str.parse().unwrap();
+        (CONVERSION_FACTOR * (temp - ADDITION_FACTOR)) as i32
+    }
 }
 
 #[cfg(test)]
@@ -38,15 +42,13 @@ mod tests {
     #[test]
     fn converts_from_celsius_to_fahrenheit() {
         let temp = "37";
-
-        assert_eq!(98.6, celsius_to_fahrenheit(&temp));
+        assert_eq!(98.6, TemperatureConverter::celsius_to_fahrenheit(&temp));
     }
 
     #[test]
     fn converts_from_fahrenheit_to_celsius() {
         let temp = "98.6";
-
-        assert_eq!(37, fahrenheit_to_celsius(&temp));
+        assert_eq!(37, TemperatureConverter::fahrenheit_to_celsius(&temp));
     }
 }
 

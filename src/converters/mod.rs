@@ -1,9 +1,8 @@
 pub mod temperature_converter;
-pub mod base_converter;
 
-use TempConversionType::{CelsiusToFahrenheit, FahrenheitToCelsius};
-use crate::converters::temperature_converter::TempConversionType;
+use crate::converters::temperature_converter::{TempConversionType, TemperatureConverter};
 use crate::io_manager::{input_getter, outputter};
+use TempConversionType::{CelsiusToFahrenheit, FahrenheitToCelsius};
 
 pub fn start_converter(conversion_type: ConversionType) {
     match conversion_type {
@@ -21,10 +20,10 @@ fn start_temperature_converter() {
 
     match processed_input {
         "1" => {
-            temperature_converter::convert(CelsiusToFahrenheit);
+            TemperatureConverter::convert(CelsiusToFahrenheit);
         },
         "2" => {
-            temperature_converter::convert(FahrenheitToCelsius);
+            TemperatureConverter::convert(FahrenheitToCelsius);
         },
         _ => {
             println!("Please enter a number between 1 and {}", temp_converters.len());
