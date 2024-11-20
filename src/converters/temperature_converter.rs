@@ -1,20 +1,12 @@
-use std::process;
 use crate::io_manager::input_getter;
 
 const CONVERSION_FACTOR: f64 = 5f64/9f64;
 const ADDITION_FACTOR: f64 = 32f64;
 
-pub fn convert_temperature(temp_conversion_type: TempConversionType) {
+pub fn convert(temp_conversion_type: TempConversionType) {
     println!("Enter the temperature you want converted");
 
-    let mut input = match input_getter::get_user_input() {
-        Ok(value) => value,
-        Err(err) => {
-            println!("Invalid input entered. Exiting program");
-            process::exit(1);
-        },
-    };
-
+    let input = input_getter::get_user_input();
     let processed_input = input.as_str().trim();
 
     match temp_conversion_type {
@@ -53,7 +45,7 @@ mod tests {
     #[test]
     fn converts_from_fahrenheit_to_celsius() {
         let temp = "98.6";
-        
+
         assert_eq!(37, fahrenheit_to_celsius(&temp));
     }
 }
