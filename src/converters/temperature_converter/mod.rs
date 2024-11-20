@@ -1,3 +1,6 @@
+pub mod temp_conversion_type;
+
+use crate::converters::temperature_converter::temp_conversion_type::TempConversionType;
 use crate::io_manager::{input_getter, outputter};
 
 const CONVERSION_FACTOR: f64 = 5f64/9f64;
@@ -49,9 +52,4 @@ mod tests {
         let temp = "98.6";
         assert_eq!(37, TemperatureConverter::fahrenheit_to_celsius(&temp));
     }
-}
-
-pub(crate) enum TempConversionType {
-    CelsiusToFahrenheit,
-    FahrenheitToCelsius,
 }

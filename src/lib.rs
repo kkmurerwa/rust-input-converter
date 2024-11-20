@@ -1,9 +1,10 @@
-use crate::converters::ConversionType;
 use io_manager::input_getter;
 use io_manager::outputter;
+use conversion_type::ConversionType;
 
 mod converters;
 mod io_manager;
+mod conversion_type;
 
 pub fn run() {
     start_program();
@@ -11,7 +12,7 @@ pub fn run() {
 
 fn start_program() {
     outputter::show("Welcome to the Rust unit converter. Enter a number to select a converter.");
-    let converters = vec!["Temperature converter", "Distance converter"];
+    let converters = vec![ConversionType::Temperature.to_string(), ConversionType::Distance.to_string()];
     outputter::print_menu_options(&converters);
 
     let input = input_getter::get_user_input();

@@ -1,3 +1,6 @@
+pub mod distance_conversion_type;
+
+use crate::converters::distance_converter::distance_conversion_type::DistanceConversionType;
 use crate::io_manager::{input_getter, outputter};
 
 const METERS_FEET_FACTOR: f64 = 3.28084;
@@ -30,9 +33,4 @@ impl DistanceConverter {
         let distance: f64 = distance_str.parse().unwrap();
         distance / METERS_FEET_FACTOR
     }
-}
-
-pub(crate) enum DistanceConversionType {
-    MetersToFeet,
-    FeetToMeters,
 }
