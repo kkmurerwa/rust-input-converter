@@ -1,25 +1,24 @@
-use crate::io_manager::input_getter;
+use crate::io_manager::{input_getter, outputter};
 
 const CONVERSION_FACTOR: f64 = 5f64/9f64;
 const ADDITION_FACTOR: f64 = 32f64;
 
-pub struct TemperatureConverter;
+pub(crate) struct TemperatureConverter;
 
 impl TemperatureConverter {
     pub(crate) fn convert(temp_conversion_type: TempConversionType) {
-        println!("Enter the temperature you want converted");
+        outputter::show("Enter the temperature you want converted");
 
         let input = input_getter::get_user_input();
-        let processed_input = input.as_str().trim();
 
         match temp_conversion_type {
             TempConversionType::CelsiusToFahrenheit => {
-                let output = TemperatureConverter::celsius_to_fahrenheit(processed_input).to_string();
-                println!("{processed_input} celsius is {output} fahrenheit");
+                let output = TemperatureConverter::celsius_to_fahrenheit(&input).to_string();
+                outputter::show(format!("{input} celsius is {output} fahrenheit"));
             },
             TempConversionType::FahrenheitToCelsius => {
-                let output = TemperatureConverter::fahrenheit_to_celsius(processed_input).to_string();
-                println!("{processed_input} fahrenheit is {output} celsius");
+                let output = TemperatureConverter::fahrenheit_to_celsius(&input).to_string();
+                outputter::show(format!("{input} fahrenheit is {output} celsius"));
             },
         };
     }
@@ -52,7 +51,7 @@ mod tests {
     }
 }
 
-pub enum TempConversionType {
+pub(crate) enum TempConversionType {
     CelsiusToFahrenheit,
     FahrenheitToCelsius,
 }

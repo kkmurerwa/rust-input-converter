@@ -10,16 +10,17 @@ pub fn run() {
 }
 
 fn start_program() {
-    println!("Welcome to the Rust unit converter. Enter a number to select a converter.");
-    let converters = vec!["Temperature converter"];
+    outputter::show("Welcome to the Rust unit converter. Enter a number to select a converter.");
+    let converters = vec!["Temperature converter", "Distance converter"];
     outputter::print_menu_options(&converters);
 
     let input = input_getter::get_user_input();
 
-    match input.as_str().trim() {
+    match input.as_str() {
         "1" => converters::start_converter(ConversionType::Temperature),
+        "2" => converters::start_converter(ConversionType::Distance),
         _ => {
-            println!("Please enter a number between 1 and {}", converters.len());
+            outputter::show(format!("Please enter a number between 1 and {}", converters.len()));
             start_program();
         }
     };
