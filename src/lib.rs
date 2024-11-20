@@ -1,10 +1,9 @@
 use io_manager::input_getter;
 use io_manager::outputter;
-use conversion_type::ConversionType;
+use converters::conversion_type::ConversionType;
 
 mod converters;
 mod io_manager;
-mod conversion_type;
 
 pub fn run() {
     start_program();

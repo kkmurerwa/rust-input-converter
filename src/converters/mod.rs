@@ -1,4 +1,4 @@
-use crate::conversion_type::ConversionType;
+use conversion_type::ConversionType;
 use crate::converters::distance_converter::distance_conversion_type::DistanceConversionType::{FeetToMeters, MetersToFeet};
 use crate::converters::distance_converter::DistanceConverter;
 use crate::converters::temperature_converter::temp_conversion_type::TempConversionType::{CelsiusToFahrenheit, FahrenheitToCelsius};
@@ -7,7 +7,7 @@ use crate::io_manager::{input_getter, outputter};
 
 pub mod temperature_converter;
 mod distance_converter;
-
+pub mod conversion_type;
 
 pub fn start_converter(conversion_type: ConversionType) {
     match conversion_type {
